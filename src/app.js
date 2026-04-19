@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');    
 const auth = require('./middlewares/authMiddleware');
 const authorize = require('./middlewares/roleMiddleware');
+const errorHandler = require('./middlewares/errorMiddleware');
 
 const app = express();
 
@@ -27,4 +28,5 @@ app.get('/api/admin', auth, authorize('admin', 'user'), (req, res) => {
     res.json({ message: "Admin only" });
 });
 
+app.use(errorHandler);
 module.exports = app;

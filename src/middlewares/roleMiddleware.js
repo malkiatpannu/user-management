@@ -1,8 +1,8 @@
+const AppError = require('../utils/AppError');
 const authorize = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
-            console.log(req.user.role);
-            return res.status(403).json({ message: "Forbidden, require role:"+roles });
+            return next(new AppError("Forbidden, require role:"+roles, 403)); 
         }
         next();
     };
