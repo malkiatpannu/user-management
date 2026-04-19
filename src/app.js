@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const authRoutes = require('./routes/authRoutes');
+const userRoutes = require('./routes/userRoutes');    
 const auth = require('./middlewares/authMiddleware');
 const authorize = require('./middlewares/roleMiddleware');
 
@@ -16,7 +17,9 @@ app.use(helmet());
 app.get('/', (req, res) => {
     res.json({ message: "API Running successfully" });
 });
+// Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
 app.get('/api/protected', auth, (req, res) => {
     res.json({ message: "Access granted to protected route", user: req.user });
 });
